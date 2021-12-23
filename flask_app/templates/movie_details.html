@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style5.css') }}">
+    <title>Movies Details</title>
+</head>
+<body>
+    <div class="header">
+        <h1><span> myWatchList!</span>MoviesDetails</h1>
+    </div>
+    <nav>
+        <form action="/search/movies" method="post">
+            <input name="movie" class="search" type="text" placeholder="Search Movies">
+        </form>
+        <div class="link">
+            <a href="/to_show/{{data2.id}}">My Movies</a>
+            <a href="/result">My Profile</a>
+            <a href="/logout">Log Out</a>
+        </div>
+    </nav>
+    <div class="main">
+        <div class="container1">
+            <img class="poster" src="https://image.tmdb.org/t/p/w500/{{data.poster_path}}" alt="Movie Poster">
+        </div>
+        <div class="container2">
+            <div class="group1">
+                <h2>{{data.original_title}}</h2>
+                <p>Detail: {{data.overview}}</p>
+            </div>
+            <div class="group2">
+                
+            </div>
+            <div class="group3">
+                <form class="btn1" action="/add_watchedlist2" method="post">
+                    <input type="hidden" name="movie_id" value="{{data.id}}">
+                    <input type="hidden" name="page" value="{{data.page}}">
+                    <input type="hidden" name="movie_title" value="{{data.title}}">
+                    <input type="hidden" name="poster_path" value="{{data.poster_path}}">
+                    <button class="btn">Add Movie to Your Watched-List</button>
+                </form>
+                <form class="btn1" action="/add_towatchlist2" method="post">
+                    <input type="hidden" name="movie_id" value="{{data.id}}">
+                    <input type="hidden" name="page" value="{{data.page}}">
+                    <input type="hidden" name="movie_title" value="{{data.title}}">
+                    <input type="hidden" name="poster_path" value="{{data.poster_path}}">
+                    <button class="btn">Add Movie to Your To Watch-List</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

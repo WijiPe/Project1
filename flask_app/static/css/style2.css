@@ -1,0 +1,230 @@
+body{
+    background-image: url('yellow-background-with-vintage-movie-camera-vector-20659924.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    background-attachment: fixed;
+
+}
+.header{
+    width: 100%;
+    height: 120px;
+    background-color: black;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size:cover;
+    /* position: fixed; */
+    font-size: 40px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    color: rgb(231, 190, 55);    
+    letter-spacing: 5px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+h1{
+    margin-top: 0px;
+}
+span{
+    color: hsla(0, 82%, 49%, 0.952);
+}
+nav{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.link{
+    margin-left: 400px;
+    font-size: 20px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    display: flex;
+    justify-content: space-between;
+    width: 150px;
+}
+a {
+    color: rgb(10, 10, 10);
+    text-decoration: none;
+}
+
+a:hover, a:active {
+    color: red;
+}
+
+.search{
+    background: url('search_images.png') no-repeat scroll 7px 7px;
+    padding-left:30px;
+    display: flex;
+    align-items: center;
+    width: 250px;
+    height: 30px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 20px;
+    box-shadow: inset 2px 2px 2px 2px rgba(14, 13, 13, 0.521);
+    margin-right: 350px;
+    margin-left: 700px;
+}
+.btn3 .btn2{
+    width: 100px;
+    height: 25px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    background-color: rgb(248, 204, 61);
+    font-size: 15px;
+    box-shadow: 2px 2px grey;
+}
+.btn3 .btn2:hover {
+    background-color: black;
+    color: rgb(248, 204, 61);
+}
+form.btn3{
+    height: 50px;
+}
+.body{
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+}
+.group1{
+    padding:25px 25px 25px 25px;
+    margin: 50px 40px 0px 0px;
+    width: 1100px;
+    height: 250px;
+    display: flex;
+    /* border: solid black; */
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    letter-spacing: 2px;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgb(248, 242, 161);
+    border-radius: 30px;
+    box-shadow: 2px 2px grey;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.name{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    /* gap: 30px; */
+}
+.quote{
+    width: 250px;
+    height: 30px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 20px;
+    box-shadow: inset 2px 2px 2px 2px rgba(14, 13, 13, 0.521);
+}
+.username{
+    width: 250px;
+    height: 30px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 20px;
+    box-shadow: inset 2px 2px 2px 2px rgba(14, 13, 13, 0.521);
+}
+.group2{
+    width: 1150px;
+    height: 50px;
+    display: flex;
+    justify-content: flex-start;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    color: black;
+    margin: 60px 0px 0px 0px;
+}
+.group3{
+    /* border: solid black; */
+    width: 1200px;
+    height: 300px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.group4{
+    /* border: solid black; */
+    width: 1200px;
+    height: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+h3{
+    font-size: 50px;
+    margin: 0px 0px 15px 0px;
+}
+h4{
+    font-size: 25px;
+    letter-spacing: 2px;
+    margin: 0px auto;
+}
+h5{
+    margin: 0px 0px 20px 0px;
+    font-size:40px;
+}
+.box{
+    width: 150px;
+    height: 200px;
+    padding: 10px;
+    overflow: auto;
+    position: relative;
+    border: 3px solid rgb(253, 253, 241);
+    background-color: rgb(253, 253, 241);
+    box-shadow: 0px 0px 2px 2px grey;
+}
+p{
+    font-size: 20px;
+}
+
+.box::-webkit-scrollbar-track
+{
+	border: 1px solid #eee022;
+}
+
+.box::-webkit-scrollbar
+{
+	width: 10px;
+	background-color: black;
+}
+
+.box::-webkit-scrollbar-thumb
+{
+	background-color: #f5f11f;	
+}
+.btn4 .btn5{
+    width: 150px;
+    height: 25px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    background-color: rgb(248, 204, 61);
+    font-size: 15px;
+    box-shadow: 2px 2px grey;
+}
+.btn4 .btn5:hover {
+    background-color: black;
+    color: rgb(248, 204, 161);
+}
+.movie{
+    background-color: black;
+    width: 150px;
+    height: 200px;
+    color: azure;
+}
+.btn3{
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.small{
+    width: 200px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

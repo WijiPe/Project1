@@ -1,0 +1,139 @@
+body{
+    /* background-image: url('Cinema-Movies-Background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed; */
+    /* position: absolute; */
+    background-color: rgb(8, 8, 8);
+}
+.header{
+    width: 100%;
+    height: 120px;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size:cover;
+    font-size: 40px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    color: rgb(231, 185, 59);    
+    letter-spacing: 5px;
+    display: flex;
+    justify-content: flex-end;
+    background-image: url('istockphoto-119050302-612x612.jpg');
+}
+h1{
+    margin-top: 0px;
+}
+span{
+    color: hsla(0, 90%, 54%, 0.952);
+    
+}
+nav{
+    width: 100%;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* background-color: rgb(248, 242, 161); */
+    flex-direction: row;
+    margin-bottom: 50px;
+}
+.link{
+    font-size: 20px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    display: flex;
+    justify-content: space-between;
+    width: 250px;
+}
+a {
+    color: rgb(231, 185, 59);
+    text-decoration: none;
+}
+a:hover, a:active {
+    color: red;
+}
+
+.search{
+    background: url('search_images.png') no-repeat scroll 7px 7px;
+    padding-left:30px;
+    display: flex;
+    align-items: center;
+    width: 300px;
+    height: 30px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 20px;
+    background-color:rgb(231, 185, 59);
+    box-shadow: inset 2px 2px 2px 2px rgba(14, 13, 13, 0.521);
+}
+.main{
+    width: 100%;
+    height: 700px;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+}
+.container1{
+    width: 700px;
+    height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.poster{
+    width: 400px;
+    height:600px;
+}
+.container2{
+    width: 1000px;
+    height: 600px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+.group1{
+    width: 1000px;
+    height:300px;
+    color: rgb(245, 209, 109);
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+
+}
+.group2{
+    width: 1000px;
+    height:300px;
+    border:2px solid rgb(255, 254, 254);
+    color: rgb(245, 209, 109);
+}
+h2{
+    font-family:monospace;
+    font-size: 25px;
+    letter-spacing: 1px;
+}
+p{
+    font-family:monospace;
+    font-size: 15px;
+}
+.group3{
+    width: 1000px;
+    height:50px;
+    border:2px solid rgb(253, 252, 252);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-direction: row;
+    color: rgb(245, 209, 109);
+}
+.btn1 .btn{
+    height:30px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    background-color: hsla(0, 90%, 54%, 0.952);
+    box-shadow: 2px 2px grey;
+}
+
+.btn1 .btn:hover {
+    background-color: black;
+    color: hsla(0, 90%, 54%, 0.952);
+}

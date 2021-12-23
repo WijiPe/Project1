@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style3.css') }}">
+    <title>Movie List</title>
+</head>
+<body>
+    <div class="header">
+      <h1><span> myWatchList!</span>MoviesList</h1>
+    </div>
+    <nav>
+      <form action="/search/movies" method="post">
+        <input name="movie" class="search" type="text" placeholder="Search Movies">
+    </form>
+      <div class="link">
+        <a href="/result">My Profile</a>
+        <a href="/logout">Log Out</a>
+      </div>
+    </nav>
+    <div class="main">
+      <div class="group1">
+        <h2>Movies I watched <span>.......................................................................alone!</span></h2>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Movie</th>
+              <th>How many times?</th>
+              <th>Director</th>
+              <th>Add to Top 5</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            {%for watched_movie in watchedmovies.movies%}
+            <tr>
+              <td>{{watched_movie.title}}</td>
+              <td class="add">{{watched_movie.watch_time}}
+                <form action="/count_watchtime" class="btn4" method="post">
+                    <input type="hidden"name="movie_list_id" value="{{watched_movie.movie_list_id}}">
+                    <button class="btn3">Add</button>
+                </form>
+              </td>
+              <td id="middle">{{watched_movie.director}}</td>
+              <td id="middle">
+                {%if watched_movie.top5movie != 1 %}
+                <form action="/add_top5movie" class="btn4" method="post">
+                  <input type="hidden" name="movie_list_id" value="{{watched_movie.movie_list_id}}">
+                  <button class="btn3">Select</button>
+                </form>
+                {% endif %}
+              </td>
+              <td id="middle" class="delete"><a href="/delete/movie_list/{{watched_movie.movie_list_id}}"><img src="{{url_for('static', filename='/img/icon-delete-20.jpg')}}" alt="Delete Icon"></a></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <div class="group3">
+          <form class="btn2" action="/to_show/movies/1">
+            <button class="btn1">Add Movie</button>
+          </form>
+          <p>Total <span>{{count2}}</span> movies</p>
+        </div>
+      </div>
+      <div class="group2">
+        <h2>Movies to watch <span>......................................................................with you!</span></h2>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Movie</th>
+              <th>Director</th>
+              <th>Finish Watching?</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            {%for to_watch_movie in towatchmovies.movies%}
+            <tr>
+              <td>{{to_watch_movie.title}}</td>
+              <td id="middle">{{to_watch_movie.director}}</td>
+              <td id="middle" ><a href="/move_to_watchedlist/{{to_watch_movie.movie_list_id}}"><img src="{{url_for('static', filename='/img/icon.movie-850 (1).png')}}" alt="Movie Icone"></a></td>
+              <td id="middle" class="delete"><a href="/delete/movie_list/{{to_watch_movie.movie_list_id}}"><img src="{{url_for('static', filename='/img/icon-delete-20.jpg')}}" alt="Delete Icon"></a></td>
+            </tr>
+            {% endfor %}
+        </table>
+        <div class="group3">
+          <form class="btn2" action="/to_show/movies/1">
+            <button class="btn1">Add Movie</button>
+          </form>
+          <p>Total <span>{{count1}}</span> movies</p>
+        </div>
+      </div>
+    </div>
+</body>
+</html>
+
+
+

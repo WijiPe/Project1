@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style2.css') }}">
+    <title>User Profile</title>
+</head>
+<body>
+    <div class="header">
+        <h1><span> myWatchList!</span>Profile</h1>
+    </div>
+    <nav>
+        <form action="/search/movies" method="post">
+            <input name="movie" class="search" type="text" placeholder="Search Movies">
+        </form>
+        <div class="link">
+            <a href="/to_show/{{users.id}}">My Movie</a>
+            <a href="/logout">Log Out</a>
+        </div>
+    </nav>
+    <div class="body">
+        <div class="group1">
+            <div class="name">
+                <h3>{{users.username}}</h3>
+                {% if users.id == session['id']%}
+                <form class="btn3" action="/to_edit/{{users.id}}">
+                    <button class="btn2">Edit</button>
+                </form>
+                {% endif %}
+                <h4><a href="follower_list.html">{{15}}followers</a></h4>
+            </div>
+            <div>
+                <h4>{{users.movie_quote}}</h4>
+                {% if users.id == session['id']%}
+                <form class="btn3" action="/to_edit/{{users.id}}">
+                    <button class="btn2">Edit</button>
+                </form>
+                {% endif %}
+            </div>
+            <div class="box">
+                <h4>Following</h4>
+                {%for following in followings%}
+                <p><a href="/result/{{following.following_id}}">{{following.following}}</a></p>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="group2">
+            <h5>{{users.username}}'s Top 5 Movies</h5>
+        </div>
+        <div class="group3">
+            {% for movie in top5movie%}
+            <div class="small">
+                <div ><img class="movie"src="https://image.tmdb.org/t/p/w500/{{movie.poster_path}}" alt="{{movie.title}}"></div>
+                {% if users.id == session['id']%}
+                    <form class="btn4" action="/delete/top5movie/{{movie.movie_list_id}}">
+                        <button class="btn5">Delete</button>
+                    </form>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

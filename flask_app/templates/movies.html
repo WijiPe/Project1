@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style4.css') }}">
+    <title>User Profile</title>
+</head>
+<body>
+    <div class="header">
+        <h1><span> myWatchList!</span>Movies</h1>
+    </div>
+    <nav>
+        <form action="/search/movies" method="post">
+            <input name="movie" class="search" type="text" placeholder="Search Movies">
+        </form>
+        <div class="link">
+            <a href="/to_show/{{users.id}}">My Movie</a>
+            <a href="/result">My Profile</a>
+            <a href="/logout">Log Out</a>
+        </div>
+    </nav>
+    <div class="main1">
+        <div class="group2">
+            {% if data.page != 1%}
+                <a href="/to_show/movies/{{data.page-1}}">previous</a>
+                <a href="/to_show/movies/1">1</a>
+            {% endif %}
+            {% if data.page > 4 %}
+                <a href="/to_show/movies/{{data.page-4}}">{{data.page-4}}</a>
+                <a href="/to_show/movies/{{data.page-3}}">{{data.page-3}}</a>
+                <a href="/to_show/movies/{{data.page-2}}">{{data.page-2}}</a>
+                <a href="/to_show/movies/{{data.page-1}}">{{data.page-1}}</a>
+            {% endif %}
+            <a class="present_page"href="/to_show/movies/{{data.page}}">{{data.page}}</a>
+            {% if 4 > data.page %}
+                <a href="/to_show/movies/{{data.page+1}}">{{data.page+1}}</a>
+                <a href="/to_show/movies/{{data.page+2}}">{{data.page+2}}</a>
+                <a href="/to_show/movies/{{data.page+3}}">{{data.page+3}}</a>
+                <a href="/to_show/movies/{{data.page+4}}">{{data.page+4}}</a>
+            {% endif %}
+            {% if data.page != 500%}
+                <a href="/to_show/movies/500">500</a>
+                <a href="/to_show/movies/{{data.page+1}}">next</a>
+            {% endif %}
+        </div>
+        <div class="movielist">
+            {% for movie in data.results%}
+            <div class="movie">
+                    <a href="/movie_detail/{{movie.id}}"><img class="poster" src="https://image.tmdb.org/t/p/w500/{{movie.poster_path}}" alt="Movie Poster"></a>
+                    <label for="movie_title">{{movie.title}}</label>
+                    <div class="button">
+                        <form class="btn2" action="/add_watchedlist" method="post">
+                            <input type="hidden" name="movie_id" value="{{movie.id}}">
+                            <input type="hidden" name="page" value="{{data.page}}">
+                            <input type="hidden" name="movie_title" value="{{movie.title}}">
+                            <input type="hidden" name="poster_path" value="{{movie.poster_path}}">
+                            <button class="btn1">Add to Watched List</button>
+                        </form>
+                        <form class="btn4" action="/add_towatchlist" method="post">
+                            <input type="hidden" name="movie_id" value="{{movie.id}}">
+                            <input type="hidden" name="page" value="{{data.page}}">
+                            <input type="hidden" name="movie_title" value="{{movie.title}}">
+                            <input type="hidden" name="poster_path" value="{{movie.poster_path}}">
+                            <button class="btn3">Add to To-Watch List</button>
+                        </form>
+                    </div>
+            </div>
+            {% endfor%}
+        </div>
+    </div>
+</body>
+</html>

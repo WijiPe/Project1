@@ -1,0 +1,20 @@
+c49e028232019660cab8e28bf4d018d9
+
+List of 10000 movies - https://api.themoviedb.org/3/movie/popular?api_key=c49e028232019660cab8e28bf4d018d9&language=en-US&page=1
+
+movie poster img  -  https://image.tmdb.org/t/p/w500/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg
+
+
+
+        <!-- <script src="{{url_for('static', filename='js/script.js')}}"></script>
+        <img src="{{ url_for('static', filename='img/email.png') }}"
+                                alt="Email Icon">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}" />
+        CSS goes at the top under bootstrap link
+        JS goes at the bottom inside body -->
+
+        @property
+    def top5(self):
+        return "Yes" if self._top5 else "No"
+
+        

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style2.css') }}">
+    <title>Other User Profile</title>
+</head>
+<body>
+    <div class="header">
+        <h1><span> myWatchList!</span>{{}}Profile</h1>
+    </div>
+    <nav>
+        <form action="movies.html">
+            <input  class="search" type="text" placeholder="Search Movies">
+        </form>
+        <div class="link">
+            <a href="movie_list.html">My Movie</a>
+            <a href="index.html">Log Out</a>
+        </div>
+    </nav>
+    <div class="body">
+        <div class="group1">
+            <div class="name">
+                <h3>{{}}</h3>
+                <!-- <form class="btn3" action="edit_profile.html"> -->
+                    
+                    <!-- <button class="btn2">Edit</button> -->
+                <!-- </form> -->
+                <h4><a href="follower_list.html">{{15}}followers</a></h4>
+            </div>
+            <div>
+                <h4>{{Movies Quotes}}</h4>
+                <!-- <form class="btn3" action="edit_profile.html">
+                    <button class="btn2">Edit</button>
+                </form> -->
+            </div>
+            <div class="box">
+                <h4><a href="following_list.html">Following</a></h4>
+                <p>{{}}</p>
+                <p>{{}}</p>
+                <p>{{}}</p>
+                <p>{{}}</p>
+                <p>{{}}</p>
+                <p>{{}}</p>
+                <p>{{}}</p>
+            </div>
+        </div>
+        <div class="group2">
+            <h5>{{}}s Top 5 Movies</h5>
+        </div>
+        <div class="group3">
+            <div class="movie">Empty</div>
+            <div class="movie">Empty</div>
+            <div class="movie">Empty</div>
+            <div class="movie">Empty</div>
+            <div class="movie">Empty</div>
+        </div>
+        <!-- <div class="group4">
+            <form class="btn4" action="movie_list.html">
+                <button class="btn5">Edit</button>
+            </form>
+            <form class="btn4" action="movie_list.html">
+                <button class="btn5">Edit</button>
+            </form>
+            <form class="btn4" action="movie_list.html">
+                <button class="btn5">Edit</button>
+            </form>
+            <form class="btn4" action="movie_list.html">
+                <button class="btn5">Edit</button>
+            </form>
+            <form class="btn4" action="movie_list.html">
+                <button class="btn5">Edit</button>
+            </form>
+        </div> -->
+    </div>
+</body>
+</html>

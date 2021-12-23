@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style2.css') }}">
+    <title>User Profile</title>
+</head>
+<body>
+    <div class="header">
+        <h1><span> myWatchList!</span>Profile</h1>
+    </div>
+    <nav>
+        <form action="movies.html" method='post'>
+            <input  class="search" type="text" placeholder="Search Movies">
+        </form>
+        <div class="link">
+            <a href="/to_show/{{user.id}}">My Movie</a>
+            <a href="/logout">Log Out</a>
+        </div>
+    </nav>
+    <div class="body">
+        <div class="group1">
+            <div class="name">
+                <form class="btn3" action="/edit/{{user.id}}" method='post'>
+                <input type="text" name="username" class="username" value="{{user.username}}">
+                <h4>{{15}}followers</h4>
+            </div>
+                <input type="text" name="movie_quote" class="quote" value="{{user.movie_quote}}">
+                <button class="btn2">Submit</button>
+                </form>
+            <div class="box">
+                <h4>Following</h4>
+                <p>...</p>
+
+            </div>
+        </div>
+        <div class="group2">
+            <h5>WijiPe's Top 5 Movies</h5>
+        </div>
+        <div class="group3">
+            <div class="movie">Empty</div>
+            <div class="movie">Empty</div>
+            <div class="movie">Empty</div>
+            <div class="movie">Empty</div>
+            <div class="movie">Empty</div>
+        </div>
+        <div class="group4">
+            <form class="btn4" action="">
+                <button class="btn5">Add</button>
+            </form>
+            <form class="btn4" action="">
+                <button class="btn5">Edit</button>
+            </form>
+            <form class="btn4" action="">
+                <button class="btn5">Edit</button>
+            </form>
+            <form class="btn4" action="">
+                <button class="btn5">Edit</button>
+            </form>
+            <form class="btn4" action="">
+                <button class="btn5">Add</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
