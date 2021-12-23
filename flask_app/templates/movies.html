@@ -27,18 +27,41 @@
                 <a href="/to_show/movies/{{data.page-1}}">previous</a>
                 <a href="/to_show/movies/1">1</a>
             {% endif %}
-            {% if data.page > 4 %}
-                <a href="/to_show/movies/{{data.page-4}}">{{data.page-4}}</a>
+            {% if data.page > 5 %}
+                {% if data.page-3 > 1 %}
                 <a href="/to_show/movies/{{data.page-3}}">{{data.page-3}}</a>
+                {% endif %}
+                {% if data.page-2 > 1 %}
                 <a href="/to_show/movies/{{data.page-2}}">{{data.page-2}}</a>
+                {% endif %}
+                {% if data.page-1 > 1 %}
                 <a href="/to_show/movies/{{data.page-1}}">{{data.page-1}}</a>
-            {% endif %}
-            <a class="present_page"href="/to_show/movies/{{data.page}}">{{data.page}}</a>
-            {% if 4 > data.page %}
+                {% endif %}
+                <a class="present_page"href="/to_show/movies/{{data.page}}">{{data.page}}</a>
+                {% if data.page+1 < 500 %}
                 <a href="/to_show/movies/{{data.page+1}}">{{data.page+1}}</a>
+                {% endif %}
+                {% if data.page+2 < 500 %}
+                <a href="/to_show/movies/{{data.page+1}}">{{data.page+2}}</a>
+                {% endif %}
+            {% endif %}
+            {% if 5 >= data.page %}
+                {% if data.page-2 > 1 %}
+                <a href="/to_show/movies/{{data.page-1}}">{{data.page-2}}</a>
+                {% endif %}
+                {% if data.page-1 > 1 %}
+                <a href="/to_show/movies/{{data.page-1}}">{{data.page-1}}</a>
+                {% endif %}
+                <a class="present_page"href="/to_show/movies/{{data.page}}">{{data.page}}</a>
+                {% if data.page+1 < 500 %}
+                <a href="/to_show/movies/{{data.page+1}}">{{data.page+1}}</a>
+                {% endif %}
+                {% if data.page+2 < 500 %}
                 <a href="/to_show/movies/{{data.page+2}}">{{data.page+2}}</a>
+                {% endif %}
+                {% if data.page+3 < 500 %}
                 <a href="/to_show/movies/{{data.page+3}}">{{data.page+3}}</a>
-                <a href="/to_show/movies/{{data.page+4}}">{{data.page+4}}</a>
+                {% endif %}
             {% endif %}
             {% if data.page != 500%}
                 <a href="/to_show/movies/500">500</a>

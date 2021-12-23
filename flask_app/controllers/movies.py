@@ -10,6 +10,14 @@ import requests
 import json
 bcrypt = Bcrypt(app)
 
+def get_director(movie_id):
+    response = requests.get(f'https://api.themoviedb.org/3/movie/{movie_id}/credits?api_key=c49e028232019660cab8e28bf4d018d9&language=en-US')
+    data = json.loads(response.text)
+    for crew in data['crew']:
+        if crew['job'] == 'Director':
+            return crew['name']
+    return "not found"
+
 @app.route("/to_show/<int:id>")
 def show_movies_list(id):
     data = {
@@ -107,7 +115,7 @@ def add_watchedlist():
         'title': request.form['movie_title'],
         'movie_id': request.form['movie_id'],
         'watch_time': 1,
-        'director': "Coming Soon!",
+        'director': get_director(request.form['movie_id']),
         'poster_path': request.form['poster_path']
     }
     if len(Movie_list.get_one_movie_in_user(data)) == 0:
@@ -118,6 +126,8 @@ def add_watchedlist():
         Movie.add_movie_on_list(data)
         return redirect(f"/to_show/{data['user_id']}")
     return redirect (f"/to_show/movies/{request.form['page']}")
+
+
 
 @app.post("/add_towatchlist")
 def add_towatchlist():
@@ -126,7 +136,7 @@ def add_towatchlist():
         'title': request.form['movie_title'],
         'movie_id': request.form['movie_id'],
         'watch_time': 0,
-        'director': "ABC",
+        'director': get_director(request.form['movie_id']),
         'poster_path': request.form['poster_path']
     }
     if len(Movie_list.get_one_movie_in_user(data)) == 0:
@@ -138,44 +148,6 @@ def add_towatchlist():
         return redirect(f"/to_show/{data['user_id']}")
     return redirect (f"/to_show/movies/{request.form['page']}")
 
-
-@app.post("/add_watchedlist2")
-def add_watchedlist1():
-    data = {
-        'user_id': session['id'],
-        'title': request.form['movie_title'],
-        'movie_id': request.form['movie_id'],
-        'watch_time': 1,
-        'director': "ABC",
-        'poster_path': request.form['poster_path']
-    }
-    if len(Movie_list.get_one_movie_in_user(data)) == 0:
-        print(len(Movie_list.get_one_movie_in_user(data)))
-        Movie_list.add_movie_list(data)
-        movies = Movie_list.get_last_movie()
-        data['movie_list_id']=movies.id
-        Movie.add_movie_on_list(data)
-        return redirect(f"/to_show/{data['user_id']}")
-    return redirect (f"/movie_detail/{request.form['movie_id']}")
-
-@app.post("/add_towatchlist2")
-def add_towatchlist2():
-    data = {
-        'user_id': session['id'],
-        'title': request.form['movie_title'],
-        'movie_id': request.form['movie_id'],
-        'watch_time': 0,
-        'director': "ABC",
-        'poster_path': request.form['poster_path']
-    }
-    if len(Movie_list.get_one_movie_in_user(data)) == 0:
-        print(len(Movie_list.get_one_movie_in_user(data)))
-        Movie_list.add_movie_list(data)
-        movies = Movie_list.get_last_movie()
-        data['movie_list_id']=movies.id
-        Movie.add_movie_on_list(data)
-        return redirect(f"/to_show/{data['user_id']}")
-    return redirect (f"/movie_detail/{request.form['movie_id']}")
 
     
 # @app.route("/to_show/movie_list")
