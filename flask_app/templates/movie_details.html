@@ -16,7 +16,7 @@
             <input name="movie" class="search" type="text" placeholder="Search Movies">
         </form>
         <div class="link">
-            <a href="/to_show/{{data2.id}}">My Movies</a>
+            <a href="/to_show/{{users.id}}">My Movies</a>
             <a href="/result">My Profile</a>
             <a href="/logout">Log Out</a>
         </div>
@@ -27,11 +27,21 @@
         </div>
         <div class="container2">
             <div class="group1">
-                <h2>{{data.original_title}}</h2>
+                <h2> Movie Name: <span> {{data.original_title}} </span> </h2>
                 <p>Detail: {{data.overview}}</p>
+                {% if "production_companies" in data%}
+                <p>Production: {{data.production_companies[0]['name']}}</p>
+                <div class="textrow">
+                    <p>Genres:</p>
+                {% endif %}
+                {% if "genres" in data%}
+                    {% for i in range(data.genres|length) %}
+                    <p> -{{data.genres[i]['name']}}-</p>
+                    {% endfor %}
+                {% endif %}
+                </div>
             </div>
             <div class="group2">
-                
             </div>
             <div class="group3">
                 <form class="btn1" action="/add_watchedlist2" method="post">

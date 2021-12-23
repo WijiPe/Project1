@@ -79,7 +79,6 @@ def move_list(id):
     Movie.move_to_watchedlist(data)
     return redirect(f'/to_show/{session["id"]}')
 
-
 @app.route("/movie_detail/<int:id>")
 def show_movie_detail(id):
     response = requests.get(f'https://api.themoviedb.org/3/movie/{id}?api_key=c49e028232019660cab8e28bf4d018d9&language=en-US')
@@ -87,7 +86,8 @@ def show_movie_detail(id):
     data2 = {
         'id': session['id']
     }
-    return render_template('movie_details.html', data=data, data2=data2)
+    users= User.get_user_by_id(data2)
+    return render_template('movie_details.html', data=data, users=users)
 
 @app.post('/search/movies')
 def search_movies():

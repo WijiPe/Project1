@@ -25,7 +25,6 @@ h1{
 }
 span{
     color: hsla(0, 90%, 54%, 0.952);
-    
 }
 nav{
     width: 100%;
@@ -109,12 +108,19 @@ a:hover, a:active {
 }
 h2{
     font-family:monospace;
-    font-size: 25px;
+    font-size: 30px;
     letter-spacing: 1px;
+    margin: 0px;
 }
 p{
     font-family:monospace;
     font-size: 15px;
+}
+.textrow{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 300px;
 }
 .group3{
     width: 1000px;
