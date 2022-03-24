@@ -64,6 +64,12 @@ class User:
             followings.append(cls(result))
         return followings
 
+    @classmethod
+    def add_following_list(cls, data):
+        query = "INSERT INTO follows (follower_id, following_id, updated_at, created_at) VALUES (%(user_id)s,  , NOW(), NOW());"
+        results = connectToMySQL(DB).query_db(query, data)
+        return results
+
     @staticmethod
     def is_valid(user):
         is_valid = True

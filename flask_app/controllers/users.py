@@ -1,6 +1,7 @@
 from flask import render_template, redirect, request, session
 from flask_app.models.user import User
 from flask_app.models.movie import Movie
+from flask_app.models.follow import Follow
 from flask_app import app
 from flask_bcrypt import Bcrypt
 from flask import flash
@@ -34,7 +35,17 @@ def result_by_id(id):
     followings = User.get_following_user(data)
     # movies = Movie.get_top5movie(data)
     users = User.get_user_by_id(data)
-    return render_template("user.html", users=users, followings=followings)
+    top5movie = Movie.get_top5movie(data)
+    return render_template("user.html", users=users, followings=followings, top5movie=top5movie)
+
+@app.post('/follow/<int:id>')
+def to_follow_user(id):
+    data = {
+        'following_id': id,
+        'follower_id': session['id']
+    }
+    Follow.add_following(data)
+    return redirect(f'/follow/{id}')
 
 @app.post('/register')
 def register():
@@ -71,6 +82,9 @@ def edit_profile(id):
     }
     User.edit_profile(data)
     return redirect("/result")
+
+
+
 
 @app.post('/login')
 def login():

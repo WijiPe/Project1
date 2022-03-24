@@ -29,7 +29,13 @@
                     <button class="btn2">Edit</button>
                 </form>
                 {% endif %}
+                {% if users.id != session['id']%}
+                <form class="btn3" action="/follow/{{users.id}}" method="post">
+                    <button class="btn2">Follow {{users.username}}</button>
+                </form>
+                {% endif %}
                 <h4><a href="follower_list.html">{{15}}followers</a></h4>
+
             </div>
             <div>
                 <h4>{{users.movie_quote}}</h4>
