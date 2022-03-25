@@ -12,8 +12,8 @@
         <h1><span> myWatchList!</span>Profile</h1>
     </div>
     <nav>
-        <form action="/search/movies" method="post">
-            <input name="movie" class="search" type="text" placeholder="Search Movies">
+        <form action="/search/user" method="post">
+            <input name="username" class="search" type="text" placeholder="Search User">
         </form>
         <div class="link">
             <a href="/to_show/{{users.id}}">My Movie</a>
@@ -29,12 +29,19 @@
                     <button class="btn2">Edit</button>
                 </form>
                 {% endif %}
-                {% if users.id != session['id']%}
-                <form class="btn3" action="/follow/{{users.id}}" method="post">
-                    <button class="btn2">Follow {{users.username}}</button>
-                </form>
+                {% if users.id != session['id'] %}
+                    {% if followed == True %}
+                        <form class="btn3" action="/unfollow/{{users.id}}" method="post">
+                            <button class="btn2">Unfollow {{users.username}}</button>
+                        </form>
+                    {% endif %}
+                    {% if followed == False %}
+                        <form class="btn3" action="/follow/{{users.id}}" method="post">
+                            <button class="btn2">Follow {{users.username}}</button>
+                        </form>
+                    {% endif %}
                 {% endif %}
-                <h4><a href="follower_list.html">{{15}}followers</a></h4>
+                <h4><a href="follower_list.html">{{followers|length}} followers</a></h4>
 
             </div>
             <div>
@@ -46,8 +53,8 @@
                 {% endif %}
             </div>
             <div class="box">
-                <h4>Following</h4>
-                {%for following in followings%}
+                <h4><h4><a href="follower_list.html">Following</a></h4></h4>
+                {% for following in followings %}
                 <p><a href="/result/{{following.following_id}}">{{following.following}}</a></p>
                 {% endfor %}
             </div>
