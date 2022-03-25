@@ -16,8 +16,8 @@
             <input name="movie" class="search" type="text" placeholder="Search Movies">
         </form>
         <div class="link">
-            <a href="/to_show/{{users.id}}">My Movies</a>
-            <a href="/result">My Profile</a>
+            <a href="/to_show/{{session['id']}}">My Movies</a>
+            <a href="/result/{{session['id']}}">My Profile</a>
             <a href="/logout">Log Out</a>
         </div>
     </nav>

@@ -51,13 +51,20 @@ class User:
             print('this is the dictionary', results[0])
             print('this is the object', one_user)
             return one_user
+    
+    @classmethod
+    def get_by_username(cls,data):
+        query = "SELECT * FROM users WHERE username = %(username)s;"
+        results = connectToMySQL(DB).query_db(query,data)
+        if results:
+            one_user = cls(results[0])
+            print('this is the dictionary', results[0])
+            print('this is the object', one_user)
+            return one_user
 
     @classmethod
-    def get_following_user(cls,data):
-        query = """SELECT users.username AS follower, users2.username AS following, follows.* 
-            FROM users LEFT JOIN follows ON users.id = follows.following_id 
-            LEFT JOIN users AS users2 ON users2.id = follows.follower_id WHERE users2.id = %(id)s;
-        """
+    def get_follower_user(cls,data):
+        query = "SELECT * FROM users JOIN follows ON users.id = follower_id WHERE following_id = %(id)s;"
         results = connectToMySQL(DB).query_db(query,data)
         followings = []
         for result in results:
@@ -65,10 +72,13 @@ class User:
         return followings
 
     @classmethod
-    def add_following_list(cls, data):
-        query = "INSERT INTO follows (follower_id, following_id, updated_at, created_at) VALUES (%(user_id)s,  , NOW(), NOW());"
-        results = connectToMySQL(DB).query_db(query, data)
-        return results
+    def get_following_user(cls,data):
+        query = "SELECT * FROM users JOIN follows ON users.id = following_id WHERE follower_id = %(id)s;"
+        results = connectToMySQL(DB).query_db(query,data)
+        followings = []
+        for result in results:
+            followings.append(cls(result))
+        return followings
 
     @staticmethod
     def is_valid(user):
@@ -84,5 +94,5 @@ class User:
         elif not PASSWORD_REGEX1.match(user['password']):
             is_valid = False
             flash ('Password must include uppercase letter.','register')
-        return is_valid    
+        return is_valid   
 

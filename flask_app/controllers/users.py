@@ -14,29 +14,33 @@ def index():
         return render_template("index.html")
     return redirect("/result")
 
-@app.route('/result')
-def result():
-    if 'id' not in session:
-        return redirect('/')
+
+@app.post('/search/user')
+def search_user():
     data = {
-        'id': session['id']
+        'username': request.form["username"]
     }
-    followings = User.get_following_user(data)
-    # movies = Movie.get_top5movie(data)
-    users = User.get_user_by_id(data)
-    top5movie = Movie.get_top5movie(data)
-    return render_template("user.html", users=users, followings=followings, top5movie=top5movie)
+    user = User.get_by_username(data)
+    return render_template('search_user.html', user=user)
 
 @app.route('/result/<int:id>')
 def result_by_id(id):
     data = {
         'id': id
     }
+    followers = User.get_follower_user(data)
     followings = User.get_following_user(data)
-    # movies = Movie.get_top5movie(data)
     users = User.get_user_by_id(data)
     top5movie = Movie.get_top5movie(data)
-    return render_template("user.html", users=users, followings=followings, top5movie=top5movie)
+    data = {
+        'following_id': id,
+        'follower_id': session['id']
+    }
+    if Follow.get_following(data):
+        followed = True
+    else:
+        followed = False
+    return render_template("user.html", users=users, followers=followers, top5movie=top5movie, followed=followed, followings=followings)
 
 @app.post('/follow/<int:id>')
 def to_follow_user(id):
@@ -44,12 +48,37 @@ def to_follow_user(id):
         'following_id': id,
         'follower_id': session['id']
     }
-    Follow.add_following(data)
-    return redirect(f'/follow/{id}')
+    if not Follow.get_following(data):
+        Follow.add_following(data)
+        return redirect(f'/result/{id}')
+    return redirect(f'/result/{id}')
+
+@app.post('/unfollow/<int:id>')
+def to_unfollow_user(id):
+    data = {
+        'following_id': id,
+        'follower_id': session['id']
+    }
+    if Follow.get_following(data):
+        Follow.delete_following(data)
+        return redirect(f'/result/{id}')
+    return redirect(f'/result/{id}')
 
 @app.post('/register')
 def register():
     if User.is_valid(request.form):
+
+        user_in_db1 = User.get_by_email(request.form)
+        user_in_db2 = User.get_by_username(request.form)
+
+        if user_in_db1:
+            flash("This email is used",'register')
+            return redirect("/")
+        
+        if user_in_db2:
+            flash("This username is used",'register')
+            return redirect("/")
+
         pw_hash = bcrypt.generate_password_hash(request.form['password'])
         print(pw_hash)
         data = {
@@ -59,7 +88,7 @@ def register():
         }
         id = User.register(data)
         session['id'] = id
-        return redirect("/result")
+        return redirect(f"/result/{session['id']}")
     return redirect('/')
     
 @app.route("/to_edit/<int:id>")
@@ -81,9 +110,7 @@ def edit_profile(id):
         "movie_quote" : request.form['movie_quote'],
     }
     User.edit_profile(data)
-    return redirect("/result")
-
-
+    return redirect(f"/result/{session['id']}")
 
 
 @app.post('/login')
@@ -93,11 +120,12 @@ def login():
     if not user_in_db:
         flash("Invalid Email/Password",'login')
         return redirect("/")
+
     if not bcrypt.check_password_hash(user_in_db.password, request.form['password']):
         flash("Invalid Username/Password",'login')
         return redirect('/')
     session['id'] = user_in_db.id
-    return redirect("/result")
+    return redirect(f"/result/{session['id']}")
 
 @app.route('/logout')
 def logout():

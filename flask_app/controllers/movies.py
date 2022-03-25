@@ -68,7 +68,7 @@ def delete_top5movie(id):
         'id': id,
     }
     Movie.delete_top5movie(data)
-    return redirect("/result")
+    return redirect(f"/result/{session['id']}")
 
 @app.route("/move_to_watchedlist/<int:id>")
 def move_list(id):
@@ -148,111 +148,6 @@ def add_towatchlist():
         return redirect(f"/to_show/{data['user_id']}")
     return redirect (f"/to_show/movies/{request.form['page']}")
 
-
-    
-# @app.route("/to_show/movie_list")
-# def show_movies_list():
-#     data = {
-#         'id': session['id']
-#     }
-#     towatchmovies = Movie_list.get_towatchmovies_by_user(data)
-#     watchedmovies = Movie_list.get_watchedmovies_by_user(data)
-#     return render_template('movie_list.html', watchedmovies=watchedmovies, towatchmovies=towatchmovies)
-
-
-    #     'id': session['id']
-    # 
-    # top5movies = Movie.get_top5movie(data)
-    # if len(top5movies) < 5:
-    #     data2 = {
-    #         **request.form,
-    #         'user_id': session['id']
-    #     }
-    #     Movie.add_top5movie(data2)
-    # return redirect(f'/to_show/{session["id"]}')
-
-# @app.route('/show_top_5_movie')
-# def show_result():
-#     if 'id' not in session:
-#         return redirect('/')
-#     data = {
-#         'id': session['id']
-#     }
-#     users = User.get_by_id(data)
-#     cars = Car.get_last()
-#     return render_template("owner_car.html", users=users, cars=cars)
-
-# @app.route("/to_edit_top5movie/<int:id>")
-# def to_edit_top_movie(id):
-#     if 'id' not in session:
-#         return redirect('/')
-#     data = {
-#         'id': id
-#     }
-#     cars = Car.get_one_car(data)
-#     if cars.user_id == session['id']:
-#         return render_template("edit_car.html", cars=cars)
-#     return redirect('/')
-
-
-
-
-# @app.route("/to_add")
-# def to_add_movie():
-#     if 'id' not in session:
-#         return redirect('/')
-#     return render_template ("add_car.html")
-
-
-
-
-
-
-
-# @app.post('/add')
-# def add_top5():
-#     if 'id' not in session:
-#         return redirect('/')
-#     if Car.is_valid(request.form):
-#         data = {
-#             'user_id': session['id'],
-#             **request.form
-#         }
-#         Car.add_car(data)
-#         return redirect("/result")
-#     return redirect('/to_add')
-
-# @app.post('/edit/<int:id>')
-# def edit_car(id):
-#     if 'id' not in session:
-#         return redirect('/')
-#     if Car.is_valid(request.form):
-#         data = {
-#             'id': id,
-#             'model': request.form['model'],
-#             'make': request.form['make'],
-#             'price': request.form['price'],
-#             'description': request.form['description'],
-#             'year': request.form['year'],
-#         }
-#         Car.edit_car(data)
-#         return redirect("/result")
-#     return redirect(f'/to_edit/{id}')
-
-
-
-
-# @app.route('/purchase/car/<int:id>')
-# def purchase_car(id):
-#     if 'id' not in session:
-#         return redirect('/')
-#     data = {
-#         "id":id,
-#         "user_id":session['id']
-#     }
-#     cars = Car.purchase_car(data)
-#     # return redirect('/result')
-#     return redirect('/show_result')
 
 
 
