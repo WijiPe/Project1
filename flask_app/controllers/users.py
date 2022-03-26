@@ -72,6 +72,17 @@ def to_follow_user(id):
         return redirect(f'/result/{id}')
     return redirect(f'/result/{id}')
 
+@app.post('/follow_fromlist/<int:id>')
+def to_follow_user(id):
+    data = {
+        'following_id': id,
+        'follower_id': session['id']
+    }
+    if not Follow.get_following(data):
+        Follow.add_following(data)
+        return redirect(f'/follower/{id}')
+    return redirect(f'/follower/{id}')
+
 
 @app.post('/unfollow/<int:id>')
 def to_unfollow_user(id):
@@ -92,8 +103,8 @@ def to_unfollow_following_from_list(id):
     }
     if Follow.get_following(data):
         Follow.delete_following(data)
-        return redirect(f'/following/{id}')
-    return redirect(f'/following/{id}')
+        return redirect(f"/following/{session['id']}")
+    return redirect(f"/following/{session['id']}")
 
 
 @app.post('/register')

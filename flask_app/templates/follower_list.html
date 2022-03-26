@@ -39,7 +39,7 @@
                 {%for follower in followers %}
                 <tr>
                     <td>{{follower.username}}
-                    <td><form class="btn3" action="/follow/{{follower.id}}" method="post">
+                    <td><form class="btn3" action="/follow_fromlist/{{follower.id}}" method="post">
                         <button class="btn2">Follow</button></td>
                     </form>
                 </tr>
