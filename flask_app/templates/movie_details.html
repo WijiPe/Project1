@@ -29,12 +29,12 @@
             <div class="group1">
                 <h2> Movie Name: <span> {{data.original_title}} </span> </h2>
                 <p>Detail: {{data.overview}}</p>
-                {% if "production_companies" in data%}
+                {% if "production_companies" in data %}
                 <p>Production: {{data.production_companies[0]['name']}}</p>
                 <div class="textrow">
                     <p>Genres:</p>
                 {% endif %}
-                {% if "genres" in data%}
+                {% if "genres" in data %}
                     {% for i in range(data.genres|length) %}
                     <p> {{data.genres[i]['name']}}</p>
                     {% endfor %}
@@ -42,16 +42,21 @@
                 </div>
             </div>
             <div class="group2">
+                {% for follower in usersWhoListMovieToWatch %}
+                    {% if follower.movie_id == data.id %}
+                        <p>{{follower.username}} of my followers have this movie in the To-Watch List</p>
+                    {% endif %}
+                {% endfor %}
             </div>
             <div class="group3">
-                <form class="btn1" action="/add_watchedlist2" method="post">
+                <form class="btn1" action="/add_watchedlist" method="post">
                     <input type="hidden" name="movie_id" value="{{data.id}}">
                     <input type="hidden" name="page" value="{{data.page}}">
                     <input type="hidden" name="movie_title" value="{{data.title}}">
                     <input type="hidden" name="poster_path" value="{{data.poster_path}}">
                     <button class="btn">Add Movie to Your Watched-List</button>
                 </form>
-                <form class="btn1" action="/add_towatchlist2" method="post">
+                <form class="btn1" action="/add_towatchlist" method="post">
                     <input type="hidden" name="movie_id" value="{{data.id}}">
                     <input type="hidden" name="page" value="{{data.page}}">
                     <input type="hidden" name="movie_title" value="{{data.title}}">

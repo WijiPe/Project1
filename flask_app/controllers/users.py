@@ -23,6 +23,7 @@ def search_user():
     user = User.get_by_username(data)
     return render_template('search_user.html', user=user)
 
+
 @app.route('/result/<int:id>')
 def result_by_id(id):
     data = {
@@ -42,6 +43,22 @@ def result_by_id(id):
         followed = False
     return render_template("user.html", users=users, followers=followers, top5movie=top5movie, followed=followed, followings=followings)
 
+@app.route('/following/<int:id>')
+def result_following_id(id):
+    data = {
+        'id': id
+    }
+    followings = User.get_following_user(data)
+    return render_template("following_list.html", followings=followings)
+
+@app.route('/follower/<int:id>')
+def result_follower_id(id):
+    data = {
+        'id': id
+    }
+    followers = User.get_follower_user(data)
+    return render_template("follower_list.html", followers=followers)
+
 @app.post('/follow/<int:id>')
 def to_follow_user(id):
     data = {
@@ -53,6 +70,7 @@ def to_follow_user(id):
         return redirect(f'/result/{id}')
     return redirect(f'/result/{id}')
 
+
 @app.post('/unfollow/<int:id>')
 def to_unfollow_user(id):
     data = {
@@ -63,6 +81,28 @@ def to_unfollow_user(id):
         Follow.delete_following(data)
         return redirect(f'/result/{id}')
     return redirect(f'/result/{id}')
+
+@app.route('/unfollow/<int:id>')
+def to_unfollow_following_from_list(id):
+    data = {
+        'following_id': id,
+        'follower_id': session['id']
+    }
+    if Follow.get_following(data):
+        Follow.delete_following(data)
+        return redirect(f'/following/{id}')
+    return redirect(f'/following/{id}')
+
+@app.route('/unfollow/<int:id>')
+def to_unfollow_follower_from_list(id):
+    data = {
+        'following_id': id,
+        'follower_id': session['id']
+    }
+    if Follow.get_following(data):
+        Follow.delete_following(data)
+        return redirect(f'/follower/{id}')
+    return redirect(f'/follower/{id}')
 
 @app.post('/register')
 def register():
@@ -90,7 +130,8 @@ def register():
         session['id'] = id
         return redirect(f"/result/{session['id']}")
     return redirect('/')
-    
+
+
 @app.route("/to_edit/<int:id>")
 def to_edit_profile(id):
     if 'id' not in session:
@@ -99,6 +140,7 @@ def to_edit_profile(id):
         'id': id
     }
     return render_template("edit_profile.html", user = User.get_user_by_id(data))
+
 
 @app.post('/edit/<int:id>')
 def edit_profile(id):
@@ -126,6 +168,7 @@ def login():
         return redirect('/')
     session['id'] = user_in_db.id
     return redirect(f"/result/{session['id']}")
+
 
 @app.route('/logout')
 def logout():

@@ -10,6 +10,7 @@ import requests
 import json
 bcrypt = Bcrypt(app)
 
+
 def get_director(movie_id):
     response = requests.get(f'https://api.themoviedb.org/3/movie/{movie_id}/credits?api_key=c49e028232019660cab8e28bf4d018d9&language=en-US')
     data = json.loads(response.text)
@@ -17,6 +18,7 @@ def get_director(movie_id):
         if crew['job'] == 'Director':
             return crew['name']
     return "not found"
+
 
 @app.route("/to_show/<int:id>")
 def show_movies_list(id):
@@ -30,6 +32,7 @@ def show_movies_list(id):
     watchedmovies = Movie_list.get_watchedmovies_by_user(data)
     # count2 = len(watchedmovies.movies)
     return render_template('movie_list.html', watchedmovies=watchedmovies, towatchmovies=towatchmovies, count1=count1, count2=count2)
+
 
 @app.route("/to_show/movies/<int:page>")
 def to_show_movies(page):
@@ -79,6 +82,7 @@ def move_list(id):
     Movie.move_to_watchedlist(data)
     return redirect(f'/to_show/{session["id"]}')
 
+
 @app.route("/movie_detail/<int:id>")
 def show_movie_detail(id):
     response = requests.get(f'https://api.themoviedb.org/3/movie/{id}?api_key=c49e028232019660cab8e28bf4d018d9&language=en-US')
@@ -86,8 +90,9 @@ def show_movie_detail(id):
     data2 = {
         'id': session['id']
     }
+    usersWhoListMovieToWatch = User.get_follower_user_who_list_movie_towatch(data2)
     users= User.get_user_by_id(data2)
-    return render_template('movie_details.html', data=data, users=users)
+    return render_template('movie_details.html', data=data, users=users, usersWhoListMovieToWatch=usersWhoListMovieToWatch)
 
 @app.post('/search/movies')
 def search_movies():
@@ -108,6 +113,7 @@ def count_watchtime():
     Movie.add_watchtime(data)
     return redirect(f'/to_show/{session["id"]}')
 
+
 @app.post("/add_watchedlist")
 def add_watchedlist():
     data = {
@@ -126,7 +132,6 @@ def add_watchedlist():
         Movie.add_movie_on_list(data)
         return redirect(f"/to_show/{data['user_id']}")
     return redirect (f"/to_show/movies/{request.form['page']}")
-
 
 
 @app.post("/add_towatchlist")

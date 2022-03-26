@@ -66,10 +66,10 @@ class User:
     def get_follower_user(cls,data):
         query = "SELECT * FROM users JOIN follows ON users.id = follower_id WHERE following_id = %(id)s;"
         results = connectToMySQL(DB).query_db(query,data)
-        followings = []
+        followers = []
         for result in results:
-            followings.append(cls(result))
-        return followings
+            followers.append(cls(result))
+        return followers
 
     @classmethod
     def get_following_user(cls,data):
@@ -79,6 +79,18 @@ class User:
         for result in results:
             followings.append(cls(result))
         return followings
+    
+    @classmethod
+    def get_follower_user_who_list_movie_towatch(cls,data):
+        query = """
+            SELECT * FROM users JOIN movie_list ON users.id = user_id JOIN movie_on_list ON movie_list.id = movie_list_id 
+            JOIN follows ON users.id = follower_id WHERE following_id = %(id)s and watch_time = 0; 
+        """
+        results = connectToMySQL(DB).query_db(query,data)
+        followers = []
+        for result in results:
+            followers.append(cls(result))
+        return followers
 
     @staticmethod
     def is_valid(user):

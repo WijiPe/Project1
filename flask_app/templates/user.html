@@ -13,10 +13,14 @@
     </div>
     <nav>
         <form action="/search/user" method="post">
-            <input name="username" class="search" type="text" placeholder="Search User">
+            <input name="username" class="search" type="text" placeholder="Search Users">
         </form>
         <div class="link">
-            <a href="/to_show/{{users.id}}">My Movie</a>
+            {% if users.id != session['id'] %}
+                <a href="/to_show/{{users.id}}">{{users.username}}'s Movie</a>
+            {% endif %}
+            <a href="/to_show/{{session['id']}}">My Movie</a>
+            <a href="/result/{{session['id']}}">My Profile</a>
             <a href="/logout">Log Out</a>
         </div>
     </nav>
@@ -32,30 +36,40 @@
                 {% if users.id != session['id'] %}
                     {% if followed == True %}
                         <form class="btn3" action="/unfollow/{{users.id}}" method="post">
-                            <button class="btn2">Unfollow {{users.username}}</button>
+                            <button class="btn2">Unfollow</button>
                         </form>
                     {% endif %}
                     {% if followed == False %}
                         <form class="btn3" action="/follow/{{users.id}}" method="post">
-                            <button class="btn2">Follow {{users.username}}</button>
+                            <button class="btn2">Follow</button>
                         </form>
                     {% endif %}
                 {% endif %}
-                <h4><a href="follower_list.html">{{followers|length}} followers</a></h4>
-
+                {% if users.id == session['id'] %}
+                    <h4><a href="/follower/{{session['id']}}">{{followers|length}} Followers</a></h4>
+                {% endif %}
+                {% if users.id != session['id'] %}
+                    <h4><a href="/follower/{{users.id}}">{{followers|length}} Followers</a></h4>
+                {% endif %}
             </div>
+
             <div>
                 <h4>{{users.movie_quote}}</h4>
-                {% if users.id == session['id']%}
+                {% if users.id == session['id'] %}
                 <form class="btn3" action="/to_edit/{{users.id}}">
                     <button class="btn2">Edit</button>
                 </form>
                 {% endif %}
             </div>
             <div class="box">
-                <h4><h4><a href="follower_list.html">Following</a></h4></h4>
+                {% if users.id == session['id'] %}
+                    <h4><a href="/following/{{session['id']}}">{{followings|length}} Following</a></h4>
+                {% endif %}
+                {% if users.id != session['id'] %}
+                    <h4><a href="/following/{{users.id}}">{{followings|length}} Following</a></h4>
+                {% endif %}
                 {% for following in followings %}
-                <p><a href="/result/{{following.following_id}}">{{following.following}}</a></p>
+                    <p><a href="/result/{{following.id}}">{{following.username}}</a></p>
                 {% endfor %}
             </div>
         </div>

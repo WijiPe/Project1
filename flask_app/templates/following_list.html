@@ -16,9 +16,9 @@
             <input  class="search" type="text" placeholder="Search Movies">
         </form>
         <div class="link">
-            <a href="movie_list.html">My Movie</a>
-            <a href="user.html">My Profile</a>
-            <a href="index.html">Log Out</a>
+            <a href="/to_show/{{session['id']}}">My Movie</a>
+            <a href="/result/{{session['id']}}">My Profile</a>
+            <a href="/logout">Log Out</a>
         </div>
     </nav>
     <div class="main">
@@ -27,21 +27,15 @@
             <thead>
                 <tr>
                     <th>Username</th>
-                    <th>Follow</th>
+                    <th>Unfollow</th>
                 </tr>
             </thead>
             <tbody>
+                {%for following in followings %}
                 <tr>
-                    <td>{{}}</td>
-                    <td class="delete"><img src="icon_follow.png" alt="following_list.html"></td>
+                    <td>{{following.username}}</td>
+                    <td class="delete"><a href="/unfollow/{{following.id}}">unfollow</a></td>
                 </tr>
-                <tr>
-                    <td>{{}}</td>
-                    <td class="delete"><img src="icon_follow.png" alt="following_list.html"></td>
-                </tr>
-                <tr>
-                    <td>{{}}</td>
-                    <td class="delete"><img src="icon_follow.png" alt="following_list.html"></td>
-                </tr>
+                {% endfor %}
             </tbody>
         </table>
