@@ -22,7 +22,12 @@
         </div>
     </nav>
     <div class="main">
-        <h2>Your Following</h2>
+        {% if users.id == session['id']%}
+            <h2>Your Following</h2>
+        {% endif %}
+        {% if users.id != session['id']%}
+            <h2>{{users.username}}'s Following</h2>
+        {% endif %}
         <table class="table table-bordered">
             <thead>
                 <tr>

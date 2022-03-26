@@ -48,16 +48,18 @@ def result_following_id(id):
     data = {
         'id': id
     }
+    users = User.get_user_by_id(data)
     followings = User.get_following_user(data)
-    return render_template("following_list.html", followings=followings)
+    return render_template("following_list.html", followings=followings, users=users)
 
 @app.route('/follower/<int:id>')
 def result_follower_id(id):
     data = {
         'id': id
     }
+    users = User.get_user_by_id(data)
     followers = User.get_follower_user(data)
-    return render_template("follower_list.html", followers=followers)
+    return render_template("follower_list.html", followers=followers, users=users)
 
 @app.post('/follow/<int:id>')
 def to_follow_user(id):
@@ -93,16 +95,6 @@ def to_unfollow_following_from_list(id):
         return redirect(f'/following/{id}')
     return redirect(f'/following/{id}')
 
-@app.route('/unfollow/<int:id>')
-def to_unfollow_follower_from_list(id):
-    data = {
-        'following_id': id,
-        'follower_id': session['id']
-    }
-    if Follow.get_following(data):
-        Follow.delete_following(data)
-        return redirect(f'/follower/{id}')
-    return redirect(f'/follower/{id}')
 
 @app.post('/register')
 def register():
