@@ -53,6 +53,10 @@ a:hover, a:active {
     color: red;
 }
 
+.accept_a{
+    color: black;
+}
+
 .search{
     background: url('search_images.png') no-repeat scroll 7px 7px;
     padding-left:30px;

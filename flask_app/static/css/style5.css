@@ -103,7 +103,6 @@ a:hover, a:active {
 .group2{
     width: 1000px;
     height:300px;
-    border:2px solid rgb(255, 254, 254);
     color: rgb(245, 209, 109);
 }
 h2{
@@ -125,7 +124,6 @@ p{
 .group3{
     width: 1000px;
     height:50px;
-    border:2px solid rgb(253, 252, 252);
     display: flex;
     justify-content: flex-end;
     align-items: center;

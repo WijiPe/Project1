@@ -91,9 +91,13 @@ def show_movie_detail(id):
         'id': session['id'],
         'movie_id': data['id']
     }
-    usersWhoListMovieToWatch = User.get_follower_user_who_list_movie_towatch(data2)
+    followingsWhoListMovieToWatch = User.get_following_user_who_list_movie_towatch(data2)
+    followingsWhoListMovieWatched = User.get_following_user_who_list_movie_watched(data2)
+    usersWhoListMovieWatched = User.get_user_who_list_movie_watched(data2)
+    usersWhoListMovieToWatch = User.get_user_who_list_movie_towatch(data2)
     users= User.get_user_by_id(data2)
-    return render_template('movie_details.html', data=data, users=users, usersWhoListMovieToWatch=usersWhoListMovieToWatch)
+    return render_template('movie_details.html', data=data, users=users, followingsWhoListMovieToWatch=followingsWhoListMovieToWatch, followingsWhoListMovieWatched=followingsWhoListMovieWatched,
+    usersWhoListMovieWatched=usersWhoListMovieWatched, usersWhoListMovieToWatch=usersWhoListMovieToWatch)
 
 @app.post('/search/movies')
 def search_movies():

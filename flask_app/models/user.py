@@ -83,10 +83,44 @@ class User:
         return followings
     
     @classmethod
-    def get_follower_user_who_list_movie_towatch(cls,data):
+    def get_following_user_who_list_movie_towatch(cls,data):
         query = """
             SELECT * FROM users JOIN movie_list ON users.id = user_id JOIN movie_on_list ON movie_list.id = movie_list_id 
-            JOIN follows ON users.id = follower_id WHERE following_id = %(id)s and watch_time = 0 and movie_id = %(movie_id)s; 
+            JOIN follows ON users.id = following_id WHERE follower_id = %(id)s and watch_time = 0 and movie_id = %(movie_id)s; 
+        """
+        results = connectToMySQL(DB).query_db(query,data)
+        followers = []
+        for result in results:
+            followers.append(cls(result))
+        return followers
+
+    @classmethod
+    def get_following_user_who_list_movie_watched(cls,data):
+        query = """
+            SELECT * FROM users JOIN movie_list ON users.id = user_id JOIN movie_on_list ON movie_list.id = movie_list_id 
+            JOIN follows ON users.id = following_id WHERE follower_id = %(id)s and watch_time > 0 and movie_id = %(movie_id)s; 
+        """
+        results = connectToMySQL(DB).query_db(query,data)
+        followers = []
+        for result in results:
+            followers.append(cls(result))
+        return followers
+
+    @classmethod
+    def get_user_who_list_movie_towatch(cls,data):
+        query = """
+            SELECT * FROM users JOIN movie_list ON users.id = user_id JOIN movie_on_list ON movie_list.id = movie_list_id WHERE watch_time = 0 and movie_id = %(movie_id)s; 
+        """
+        results = connectToMySQL(DB).query_db(query,data)
+        followers = []
+        for result in results:
+            followers.append(cls(result))
+        return followers
+
+    @classmethod
+    def get_user_who_list_movie_watched(cls,data):
+        query = """
+            SELECT * FROM users JOIN movie_list ON users.id = user_id JOIN movie_on_list ON movie_list.id = movie_list_id WHERE watch_time > 0 and movie_id = %(movie_id)s; 
         """
         results = connectToMySQL(DB).query_db(query,data)
         followers = []

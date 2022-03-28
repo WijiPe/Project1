@@ -32,14 +32,15 @@
             <thead>
                 <tr>
                     <th>Username</th>
-                    <th>Unfollow</th>
                 </tr>
             </thead>
             <tbody>
                 {%for following in followings %}
                 <tr>
                     <td>{{following.username}}</td>
-                    <td class="delete"><a href="/unfollow/{{following.id}}">unfollow</a></td>
+                    {% if users.id == session['id']%}
+                        <td><a class="accept_a" href="/unfollow/{{following.id}}">unfollow</a></td>
+                    {% endif %}
                 </tr>
                 {% endfor %}
             </tbody>
