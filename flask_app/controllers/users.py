@@ -27,7 +27,8 @@ def search_user():
 @app.route('/result/<int:id>')
 def result_by_id(id):
     data = {
-        'id': id
+        'id': id,
+        'myid': session['id']
     }
     followers = User.get_follower_user(data)
     followings = User.get_following_user(data)
@@ -55,11 +56,13 @@ def result_following_id(id):
 @app.route('/follower/<int:id>')
 def result_follower_id(id):
     data = {
-        'id': id
+        'id': id,
+        'myid': session['id']
     }
     users = User.get_user_by_id(data)
     followers = User.get_follower_user(data)
-    return render_template("follower_list.html", followers=followers, users=users)
+    followings = User.get_following_user(data)
+    return render_template("follower_list.html", followers=followers, users=users, followings=followings)
 
 @app.post('/follow/<int:id>')
 def to_follow_user(id):
@@ -73,16 +76,15 @@ def to_follow_user(id):
     return redirect(f'/result/{id}')
 
 @app.post('/follow_fromlist/<int:id>')
-def to_follow_user(id):
+def to_follow_user_fromlist(id):
     data = {
         'following_id': id,
         'follower_id': session['id']
     }
     if not Follow.get_following(data):
         Follow.add_following(data)
-        return redirect(f'/follower/{id}')
-    return redirect(f'/follower/{id}')
-
+        return redirect(f"/follower/{session['id']}")
+    return redirect(f"/follower/{session['id']}")
 
 @app.post('/unfollow/<int:id>')
 def to_unfollow_user(id):
@@ -94,6 +96,17 @@ def to_unfollow_user(id):
         Follow.delete_following(data)
         return redirect(f'/result/{id}')
     return redirect(f'/result/{id}')
+
+@app.post('/unfollow_fromlist/<int:id>')
+def to_unfollow_user_fromlist(id):
+    data = {
+        'following_id': id,
+        'follower_id': session['id']
+    }
+    if Follow.get_following(data):
+        Follow.delete_following(data)
+        return redirect(f"/follower/{session['id']}")
+    return redirect(f"/follower/{session['id']}")
 
 @app.route('/unfollow/<int:id>')
 def to_unfollow_following_from_list(id):

@@ -88,7 +88,8 @@ def show_movie_detail(id):
     response = requests.get(f'https://api.themoviedb.org/3/movie/{id}?api_key=c49e028232019660cab8e28bf4d018d9&language=en-US')
     data = json.loads(response.text)
     data2 = {
-        'id': session['id']
+        'id': session['id'],
+        'movie_id': data['id']
     }
     usersWhoListMovieToWatch = User.get_follower_user_who_list_movie_towatch(data2)
     users= User.get_user_by_id(data2)

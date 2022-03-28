@@ -42,11 +42,7 @@
                 </div>
             </div>
             <div class="group2">
-                {% for follower in usersWhoListMovieToWatch %}
-                    {% if follower.movie_id == data.id %}
-                        <p>{{follower.username}} of my followers have this movie in the To-Watch List</p>
-                    {% endif %}
-                {% endfor %}
+                    <p>{{usersWhoListMovieToWatch|length}} of my followers have this movie in the To-Watch List</p>
             </div>
             <div class="group3">
                 <form class="btn1" action="/add_watchedlist" method="post">

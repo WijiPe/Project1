@@ -36,12 +36,19 @@
                 </tr>
             </thead>
             <tbody>
-                {%for follower in followers %}
+                {% for follower in followers %}
                 <tr>
                     <td>{{follower.username}}
-                    <td><form class="btn3" action="/follow_fromlist/{{follower.id}}" method="post">
-                        <button class="btn2">Follow</button></td>
-                    </form>
+                            {% if (follower.followed == False and users.id == session['id']) %}
+                                <td><form class="btn3" action="/follow_fromlist/{{follower.id}}" method="post">
+                                    <button class="btn2">Follow</button>
+                                </form></td>
+                            {% endif %}
+                            {% if (follower.followed != False and users.id == session['id']) %}
+                                <td><form class="btn3" action="/unfollow_fromlist/{{follower.id}}" method="post">
+                                    <button class="btn2">UnFollow</button>
+                                </form></td>
+                            {% endif %}
                 </tr>
                 {% endfor %}
             </tbody>

@@ -14,6 +14,8 @@ class User:
         self.password = data['password']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
+        if 'followed' in data:
+            self.followed = data['followed']
         if 'movie_quote' in data:
             self.movie_quote = data['movie_quote']
 
@@ -64,7 +66,7 @@ class User:
 
     @classmethod
     def get_follower_user(cls,data):
-        query = "SELECT * FROM users JOIN follows ON users.id = follower_id WHERE following_id = %(id)s;"
+        query = "SELECT *, follower_id in (SELECT following_id FROM follows WHERE follower_id = %(myid)s) AS followed FROM users JOIN follows ON users.id = follower_id WHERE following_id = %(id)s;"
         results = connectToMySQL(DB).query_db(query,data)
         followers = []
         for result in results:
@@ -84,7 +86,7 @@ class User:
     def get_follower_user_who_list_movie_towatch(cls,data):
         query = """
             SELECT * FROM users JOIN movie_list ON users.id = user_id JOIN movie_on_list ON movie_list.id = movie_list_id 
-            JOIN follows ON users.id = follower_id WHERE following_id = %(id)s and watch_time = 0; 
+            JOIN follows ON users.id = follower_id WHERE following_id = %(id)s and watch_time = 0 and movie_id = %(movie_id)s; 
         """
         results = connectToMySQL(DB).query_db(query,data)
         followers = []
