@@ -1,0 +1,27 @@
+version: "3.5"
+services: 
+  backend:
+    container_name: MyWatchListBackend
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    working_dir: /app
+    command: python server.py
+    ports:
+      - "5000:5000"
+  mysql:
+    build:
+        context: .
+        dockerfile: db.Dockerfile
+    volumes:
+      - ./.sql:/var/lib/mysql
+      - ./mysql:/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_PASSWORD=root
+      - MYSQL_DATABASE=mywatchlist_schema
+
+
+
+
+
