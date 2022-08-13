@@ -12,13 +12,13 @@
         <h1><span> myWatchList!</span>MoviesDetails</h1>
     </div>
     <nav>
-        <form action="/search/movies" method="post">
+        <form action="/mywatchlist/search/movies" method="post">
             <input name="movie" class="search" type="text" placeholder="Search Movies">
         </form>
         <div class="link">
-            <a href="/to_show/{{session['id']}}">My Movies</a>
-            <a href="/result/{{session['id']}}">My Profile</a>
-            <a href="/logout">Log Out</a>
+            <a href="/mywatchlist/to_show/{{session['id']}}">My Movies</a>
+            <a href="/mywatchlist/result/{{session['id']}}">My Profile</a>
+            <a href="/mywatchlist/logout">Log Out</a>
         </div>
     </nav>
     <div class="main">
@@ -48,14 +48,14 @@
                     <p>{{followingsWhoListMovieWatched|length}} of my followings have this movie in the Watched List</p>
             </div>
             <div class="group3">
-                <form class="btn1" action="/add_watchedlist" method="post">
+                <form class="btn1" action="/mywatchlist/add_watchedlist" method="post">
                     <input type="hidden" name="movie_id" value="{{data.id}}">
                     <input type="hidden" name="page" value="{{data.page}}">
                     <input type="hidden" name="movie_title" value="{{data.title}}">
                     <input type="hidden" name="poster_path" value="{{data.poster_path}}">
                     <button class="btn">Add Movie to Your Watched-List</button>
                 </form>
-                <form class="btn1" action="/add_towatchlist" method="post">
+                <form class="btn1" action="/mywatchlist/add_towatchlist" method="post">
                     <input type="hidden" name="movie_id" value="{{data.id}}">
                     <input type="hidden" name="page" value="{{data.page}}">
                     <input type="hidden" name="movie_title" value="{{data.title}}">

@@ -12,16 +12,16 @@
         <h1><span> myWatchList!</span>Profile</h1>
     </div>
     <nav>
-        <form action="/search/user" method="post">
+        <form action="/mywatchlist/search/user" method="post">
             <input name="username" class="search" type="text" placeholder="Search Users">
         </form>
         <div class="link">
             {% if users.id != session['id'] %}
-                <a href="/to_show/{{users.id}}">{{users.username}}'s Movie</a>
+                <a href="/mywatchlist/to_show/{{users.id}}">{{users.username}}'s Movie</a>
             {% endif %}
-            <a href="/to_show/{{session['id']}}">My Movie</a>
-            <a href="/result/{{session['id']}}">My Profile</a>
-            <a href="/logout">Log Out</a>
+            <a href="/mywatchlist/to_show/{{session['id']}}">My Movie</a>
+            <a href="/mywatchlist/result/{{session['id']}}">My Profile</a>
+            <a href="/mywatchlist/logout">Log Out</a>
         </div>
     </nav>
     <div class="body">
@@ -29,47 +29,47 @@
             <div class="name">
                 <h3>{{users.username}}</h3>
                 {% if users.id == session['id']%}
-                <form class="btn3" action="/to_edit/{{users.id}}">
+                <form class="btn3" action="/mywatchlist/to_edit/{{users.id}}">
                     <button class="btn2">Edit</button>
                 </form>
                 {% endif %}
                 {% if users.id != session['id'] %}
                     {% if followed == True %}
-                        <form class="btn3" action="/unfollow/{{users.id}}" method="post">
+                        <form class="btn3" action="/mywatchlist/unfollow/{{users.id}}" method="post">
                             <button class="btn2">Unfollow</button>
                         </form>
                     {% endif %}
                     {% if followed == False %}
-                        <form class="btn3" action="/follow/{{users.id}}" method="post">
+                        <form class="btn3" action="/mywatchlist/follow/{{users.id}}" method="post">
                             <button class="btn2">Follow</button>
                         </form>
                     {% endif %}
                 {% endif %}
                 {% if users.id == session['id'] %}
-                    <h4><a href="/follower/{{session['id']}}">{{followers|length}} Followers</a></h4>
+                    <h4><a href="/mywatchlist/follower/{{session['id']}}">{{followers|length}} Followers</a></h4>
                 {% endif %}
                 {% if users.id != session['id'] %}
-                    <h4><a href="/follower/{{users.id}}">{{followers|length}} Followers</a></h4>
+                    <h4><a href="/mywatchlist/follower/{{users.id}}">{{followers|length}} Followers</a></h4>
                 {% endif %}
             </div>
 
             <div>
                 <h4>{{users.movie_quote}}</h4>
                 {% if users.id == session['id'] %}
-                <form class="btn3" action="/to_edit/{{users.id}}">
+                <form class="btn3" action="/mywatchlist/to_edit/{{users.id}}">
                     <button class="btn2">Edit</button>
                 </form>
                 {% endif %}
             </div>
             <div class="box">
                 {% if users.id == session['id'] %}
-                    <h4><a href="/following/{{session['id']}}">{{followings|length}} Following</a></h4>
+                    <h4><a href="/mywatchlist/following/{{session['id']}}">{{followings|length}} Following</a></h4>
                 {% endif %}
                 {% if users.id != session['id'] %}
-                    <h4><a href="/following/{{users.id}}">{{followings|length}} Following</a></h4>
+                    <h4><a href="/mywatchlist/following/{{users.id}}">{{followings|length}} Following</a></h4>
                 {% endif %}
                 {% for following in followings %}
-                    <p><a href="/result/{{following.id}}">{{following.username}}</a></p>
+                    <p><a href="/mywatchlist/result/{{following.id}}">{{following.username}}</a></p>
                 {% endfor %}
             </div>
         </div>
@@ -81,7 +81,7 @@
             <div class="small">
                 <div ><img class="movie"src="https://image.tmdb.org/t/p/w500/{{movie.poster_path}}" alt="{{movie.title}}"></div>
                 {% if users.id == session['id']%}
-                    <form class="btn4" action="/delete/top5movie/{{movie.movie_list_id}}">
+                    <form class="btn4" action="/mywatchlist/delete/top5movie/{{movie.movie_list_id}}">
                         <button class="btn5">Delete</button>
                     </form>
                 {% endif %}

@@ -16,14 +16,14 @@
             <input  class="search" type="text" placeholder="Search Movies">
         </form>
         <div class="link">
-            <a href="/to_show/{{user.id}}">My Movie</a>
-            <a href="/logout">Log Out</a>
+            <a href="/mywatchlist/to_show/{{user.id}}">My Movie</a>
+            <a href="/mywatchlist/logout">Log Out</a>
         </div>
     </nav>
     <div class="body">
         <div class="group1">
             <div class="name">
-                <form class="btn3" action="/edit/{{user.id}}" method='post'>
+                <form class="btn3" action="/mywatchlist/edit/{{user.id}}" method='post'>
                 <input type="text" name="username" class="username" value="{{user.username}}">
                 <h4>{{15}}followers</h4>
             </div>

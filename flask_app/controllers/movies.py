@@ -20,7 +20,7 @@ def get_director(movie_id):
     return "not found"
 
 
-@app.route("/to_show/<int:id>")
+@app.route("/mywatchlist/to_show/<int:id>")
 def show_movies_list(id):
     data = {
         'id': id
@@ -34,7 +34,7 @@ def show_movies_list(id):
     return render_template('movie_list.html', watchedmovies=watchedmovies, towatchmovies=towatchmovies, count1=count1, count2=count2)
 
 
-@app.route("/to_show/movies/<int:page>")
+@app.route("/mywatchlist/to_show/movies/<int:page>")
 def to_show_movies(page):
     response = requests.get(f'https://api.themoviedb.org/3/movie/popular?api_key=c49e028232019660cab8e28bf4d018d9&language=en-US&page={page}')
     data = json.loads(response.text)
@@ -45,16 +45,16 @@ def to_show_movies(page):
     users= User.get_user_by_id(data2)
     return render_template('movies.html', data=data, users=users)
 
-@app.route('/delete/movie_list/<int:id>')
+@app.route('/mywatchlist/delete/movie_list/<int:id>')
 def delete_movie_list(id):
     data = {
         'id': id,
         'user_id': session['id'],
     }
     Movie.delete_movie_list(data)
-    return redirect(f"/to_show/{data['user_id']}")
+    return redirect(f"/mywatchlist/to_show/{data['user_id']}")
 
-@app.post("/add_top5movie")
+@app.post("/mywatchlist/add_top5movie")
 def add_top5movie():
     data = {
         'movie_list_id': request.form['movie_list_id'],
@@ -62,28 +62,28 @@ def add_top5movie():
     }
     if len(Movie.get_top5movie(data)) < 5:
         Movie.add_top5movie(data)
-    return redirect(f'/to_show/{session["id"]}')
+    return redirect(f'/mywatchlist/to_show/{session["id"]}')
 
 
-@app.route('/delete/top5movie/<int:id>')
+@app.route('/mywatchlist/delete/top5movie/<int:id>')
 def delete_top5movie(id):
     data = {
         'id': id,
     }
     Movie.delete_top5movie(data)
-    return redirect(f"/result/{session['id']}")
+    return redirect(f"/mywatchlist/result/{session['id']}")
 
-@app.route("/move_to_watchedlist/<int:id>")
+@app.route("/mywatchlist/move_to_watchedlist/<int:id>")
 def move_list(id):
     data = {
         'id': id,
         'user_id': session['id'],
     }
     Movie.move_to_watchedlist(data)
-    return redirect(f'/to_show/{session["id"]}')
+    return redirect(f'/mywatchlist/to_show/{session["id"]}')
 
 
-@app.route("/movie_detail/<int:id>")
+@app.route("/mywatchlist/movie_detail/<int:id>")
 def show_movie_detail(id):
     response = requests.get(f'https://api.themoviedb.org/3/movie/{id}?api_key=c49e028232019660cab8e28bf4d018d9&language=en-US')
     data = json.loads(response.text)
@@ -99,7 +99,7 @@ def show_movie_detail(id):
     return render_template('movie_details.html', data=data, users=users, followingsWhoListMovieToWatch=followingsWhoListMovieToWatch, followingsWhoListMovieWatched=followingsWhoListMovieWatched,
     usersWhoListMovieWatched=usersWhoListMovieWatched, usersWhoListMovieToWatch=usersWhoListMovieToWatch)
 
-@app.post('/search/movies')
+@app.post('/mywatchlist/search/movies')
 def search_movies():
     response = requests.get(f'https://api.themoviedb.org/3/search/movie?api_key=c49e028232019660cab8e28bf4d018d9&language=en-US&query={request.form["movie"]}&page=1&include_adult=false')
     data = json.loads(response.text)
@@ -110,16 +110,16 @@ def search_movies():
     return render_template('movies.html', data=data, users=users)
 
 
-@app.post('/count_watchtime')         
+@app.post('/mywatchlist/count_watchtime')         
 def count_watchtime():
     data ={
         'id':request.form['movie_list_id']
     }
     Movie.add_watchtime(data)
-    return redirect(f'/to_show/{session["id"]}')
+    return redirect(f'/mywatchlist/to_show/{session["id"]}')
 
 
-@app.post("/add_watchedlist")
+@app.post("/mywatchlist/add_watchedlist")
 def add_watchedlist():
     data = {
         'user_id': session['id'],
@@ -135,11 +135,11 @@ def add_watchedlist():
         movies = Movie_list.get_last_movie()
         data['movie_list_id']=movies.id
         Movie.add_movie_on_list(data)
-        return redirect(f"/to_show/{data['user_id']}")
-    return redirect (f"/to_show/movies/{request.form['page']}")
+        return redirect(f"/mywatchlist/to_show/{data['user_id']}")
+    return redirect (f"/mywatchlist/to_show/movies/{request.form['page']}")
 
 
-@app.post("/add_towatchlist")
+@app.post("/mywatchlist/add_towatchlist")
 def add_towatchlist():
     data = {
         'user_id': session['id'],
@@ -155,8 +155,8 @@ def add_towatchlist():
         movies = Movie_list.get_last_movie()
         data['movie_list_id']=movies.id
         Movie.add_movie_on_list(data)
-        return redirect(f"/to_show/{data['user_id']}")
-    return redirect (f"/to_show/movies/{request.form['page']}")
+        return redirect(f"/mywatchlist/to_show/{data['user_id']}")
+    return redirect (f"/mywatchlist/to_show/movies/{request.form['page']}")
 
 
 

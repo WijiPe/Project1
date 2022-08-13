@@ -12,76 +12,76 @@
         <h1><span> myWatchList!</span>Movies</h1>
     </div>
     <nav>
-        <form action="/search/movies" method="post">
+        <form action="/mywatchlist/search/movies" method="post">
             <input name="movie" class="search" type="text" placeholder="Search Movies">
         </form>
         <div class="link">
-            <a href="/to_show/{{session['id']}}">My Movie</a>
-            <a href="/result/{{session['id']}}">My Profile</a>
-            <a href="/logout">Log Out</a>
+            <a href="/mywatchlist/to_show/{{session['id']}}">My Movie</a>
+            <a href="/mywatchlist/result/{{session['id']}}">My Profile</a>
+            <a href="/mywatchlist/logout">Log Out</a>
         </div>
     </nav>
     <div class="main1">
         <div class="group2">
             {% if data.page != 1%}
-                <a href="/to_show/movies/{{data.page-1}}">previous</a>
-                <a href="/to_show/movies/1">1</a>
+                <a href="/mywatchlist/to_show/movies/{{data.page-1}}">previous</a>
+                <a href="/mywatchlist/to_show/movies/1">1</a>
             {% endif %}
             {% if data.page > 5 %}
                 {% if data.page-3 > 1 %}
-                <a href="/to_show/movies/{{data.page-3}}">{{data.page-3}}</a>
+                <a href="/mywatchlist/to_show/movies/{{data.page-3}}">{{data.page-3}}</a>
                 {% endif %}
                 {% if data.page-2 > 1 %}
-                <a href="/to_show/movies/{{data.page-2}}">{{data.page-2}}</a>
+                <a href="/mywatchlist/to_show/movies/{{data.page-2}}">{{data.page-2}}</a>
                 {% endif %}
                 {% if data.page-1 > 1 %}
-                <a href="/to_show/movies/{{data.page-1}}">{{data.page-1}}</a>
+                <a href="/mywatchlist/to_show/movies/{{data.page-1}}">{{data.page-1}}</a>
                 {% endif %}
-                <a class="present_page"href="/to_show/movies/{{data.page}}">{{data.page}}</a>
+                <a class="present_page"href="/mywatchlist/to_show/movies/{{data.page}}">{{data.page}}</a>
                 {% if data.page+1 < 500 %}
-                <a href="/to_show/movies/{{data.page+1}}">{{data.page+1}}</a>
+                <a href="/mywatchlist/to_show/movies/{{data.page+1}}">{{data.page+1}}</a>
                 {% endif %}
                 {% if data.page+2 < 500 %}
-                <a href="/to_show/movies/{{data.page+1}}">{{data.page+2}}</a>
+                <a href="/mywatchlist/to_show/movies/{{data.page+1}}">{{data.page+2}}</a>
                 {% endif %}
             {% endif %}
             {% if 5 >= data.page %}
                 {% if data.page-2 > 1 %}
-                <a href="/to_show/movies/{{data.page-1}}">{{data.page-2}}</a>
+                <a href="/mywatchlist/to_show/movies/{{data.page-1}}">{{data.page-2}}</a>
                 {% endif %}
                 {% if data.page-1 > 1 %}
-                <a href="/to_show/movies/{{data.page-1}}">{{data.page-1}}</a>
+                <a href="/mywatchlist/to_show/movies/{{data.page-1}}">{{data.page-1}}</a>
                 {% endif %}
-                <a class="present_page"href="/to_show/movies/{{data.page}}">{{data.page}}</a>
+                <a class="present_page"href="/mywatchlist/to_show/movies/{{data.page}}">{{data.page}}</a>
                 {% if data.page+1 < 500 %}
-                <a href="/to_show/movies/{{data.page+1}}">{{data.page+1}}</a>
+                <a href="/mywatchlist/to_show/movies/{{data.page+1}}">{{data.page+1}}</a>
                 {% endif %}
                 {% if data.page+2 < 500 %}
-                <a href="/to_show/movies/{{data.page+2}}">{{data.page+2}}</a>
+                <a href="/mywatchlist/to_show/movies/{{data.page+2}}">{{data.page+2}}</a>
                 {% endif %}
                 {% if data.page+3 < 500 %}
-                <a href="/to_show/movies/{{data.page+3}}">{{data.page+3}}</a>
+                <a href="/mywatchlist/to_show/movies/{{data.page+3}}">{{data.page+3}}</a>
                 {% endif %}
             {% endif %}
             {% if data.page != 500%}
-                <a href="/to_show/movies/500">500</a>
-                <a href="/to_show/movies/{{data.page+1}}">next</a>
+                <a href="/mywatchlist/to_show/movies/500">500</a>
+                <a href="/mywatchlist/to_show/movies/{{data.page+1}}">next</a>
             {% endif %}
         </div>
         <div class="movielist">
             {% for movie in data.results%}
             <div class="movie">
-                    <a href="/movie_detail/{{movie.id}}"><img class="poster" src="https://image.tmdb.org/t/p/w500/{{movie.poster_path}}" alt="Movie Poster"></a>
+                    <a href="/mywatchlist/movie_detail/{{movie.id}}"><img class="poster" src="https://image.tmdb.org/t/p/w500/{{movie.poster_path}}" alt="Movie Poster"></a>
                     <label for="movie_title">{{movie.title}}</label>
                     <div class="button">
-                        <form class="btn2" action="/add_watchedlist" method="post">
+                        <form class="btn2" action="/mywatchlist/add_watchedlist" method="post">
                             <input type="hidden" name="movie_id" value="{{movie.id}}">
                             <input type="hidden" name="page" value="{{data.page}}">
                             <input type="hidden" name="movie_title" value="{{movie.title}}">
                             <input type="hidden" name="poster_path" value="{{movie.poster_path}}">
                             <button class="btn1">Add to Watched List</button>
                         </form>
-                        <form class="btn4" action="/add_towatchlist" method="post">
+                        <form class="btn4" action="/mywatchlist/add_towatchlist" method="post">
                             <input type="hidden" name="movie_id" value="{{movie.id}}">
                             <input type="hidden" name="page" value="{{data.page}}">
                             <input type="hidden" name="movie_title" value="{{movie.title}}">

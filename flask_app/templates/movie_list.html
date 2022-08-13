@@ -12,12 +12,12 @@
       <h1><span> myWatchList!</span>MoviesList</h1>
     </div>
     <nav>
-      <form action="/search/movies" method="post">
+      <form action="/mywatchlist/search/movies" method="post">
         <input name="movie" class="search" type="text" placeholder="Search Movies">
     </form>
       <div class="link">
-        <a href="/result/{{session['id']}}">My Profile</a>
-        <a href="/logout">Log Out</a>
+        <a href="/mywatchlist/result/{{session['id']}}">My Profile</a>
+        <a href="/mywatchlist/logout">Log Out</a>
       </div>
     </nav>
     <div class="main">
@@ -38,7 +38,7 @@
             <tr>
               <td>{{watched_movie.title}}</td>
               <td class="add">{{watched_movie.watch_time}}
-                <form action="/count_watchtime" class="btn4" method="post">
+                <form action="/mywatchlist/count_watchtime" class="btn4" method="post">
                     <input type="hidden"name="movie_list_id" value="{{watched_movie.movie_list_id}}">
                     <button class="btn3">Add</button>
                 </form>
@@ -46,19 +46,19 @@
               <td id="middle">{{watched_movie.director}}</td>
               <td id="middle">
                 {%if watched_movie.top5movie != 1 %}
-                <form action="/add_top5movie" class="btn4" method="post">
+                <form action="/mywatchlist/add_top5movie" class="btn4" method="post">
                   <input type="hidden" name="movie_list_id" value="{{watched_movie.movie_list_id}}">
                   <button class="btn3">Select</button>
                 </form>
                 {% endif %}
               </td>
-              <td id="middle" class="delete"><a href="/delete/movie_list/{{watched_movie.movie_list_id}}"><img src="{{url_for('static', filename='/img/icon-delete-20.jpg')}}" alt="Delete Icon"></a></td>
+              <td id="middle" class="delete"><a href="/mywatchlist/delete/movie_list/{{watched_movie.movie_list_id}}"><img src="{{url_for('static', filename='/img/icon-delete-20.jpg')}}" alt="Delete Icon"></a></td>
             </tr>
             {% endfor %}
           </tbody>
         </table>
         <div class="group3">
-          <form class="btn2" action="/to_show/movies/1">
+          <form class="btn2" action="/mywatchlist/to_show/movies/1">
             <button class="btn1">Add Movie</button>
           </form>
           <p>Total <span>{{count2}}</span> movies</p>
@@ -80,13 +80,13 @@
             <tr>
               <td>{{to_watch_movie.title}}</td>
               <td id="middle">{{to_watch_movie.director}}</td>
-              <td id="middle" ><a href="/move_to_watchedlist/{{to_watch_movie.movie_list_id}}"><img src="{{url_for('static', filename='/img/icon.movie-850 (1).png')}}" alt="Movie Icone"></a></td>
-              <td id="middle" class="delete"><a href="/delete/movie_list/{{to_watch_movie.movie_list_id}}"><img src="{{url_for('static', filename='/img/icon-delete-20.jpg')}}" alt="Delete Icon"></a></td>
+              <td id="middle" ><a href="/mywatchlist/move_to_watchedlist/{{to_watch_movie.movie_list_id}}"><img src="{{url_for('static', filename='/img/icon.movie-850 (1).png')}}" alt="Movie Icone"></a></td>
+              <td id="middle" class="delete"><a href="/mywatchlist/delete/movie_list/{{to_watch_movie.movie_list_id}}"><img src="{{url_for('static', filename='/img/icon-delete-20.jpg')}}" alt="Delete Icon"></a></td>
             </tr>
             {% endfor %}
         </table>
         <div class="group3">
-          <form class="btn2" action="/to_show/movies/1">
+          <form class="btn2" action="/mywatchlist/to_show/movies/1">
             <button class="btn1">Add Movie</button>
           </form>
           <p>Total <span>{{count1}}</span> movies</p>

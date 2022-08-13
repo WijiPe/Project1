@@ -8,14 +8,14 @@ from flask import flash
 bcrypt = Bcrypt(app)
 
 
-@app.route('/')
+@app.route('/mywatchlist')
 def index():
     if 'id' not in session:
         return render_template("index.html")
-    return redirect("/result")
+    return redirect("/mywatchlist/result")
 
 
-@app.post('/search/user')
+@app.post('/mywatchlist/search/user')
 def search_user():
     data = {
         'username': request.form["username"]
@@ -24,7 +24,7 @@ def search_user():
     return render_template('search_user.html', user=user)
 
 
-@app.route('/result/<int:id>')
+@app.route('/mywatchlist/result/<int:id>')
 def result_by_id(id):
     data = {
         'id': id,
@@ -44,7 +44,7 @@ def result_by_id(id):
         followed = False
     return render_template("user.html", users=users, followers=followers, top5movie=top5movie, followed=followed, followings=followings)
 
-@app.route('/following/<int:id>')
+@app.route('/mywatchlist/following/<int:id>')
 def result_following_id(id):
     data = {
         'id': id
@@ -53,7 +53,7 @@ def result_following_id(id):
     followings = User.get_following_user(data)
     return render_template("following_list.html", followings=followings, users=users)
 
-@app.route('/follower/<int:id>')
+@app.route('/mywatchlist/follower/<int:id>')
 def result_follower_id(id):
     data = {
         'id': id,
@@ -64,7 +64,7 @@ def result_follower_id(id):
     followings = User.get_following_user(data)
     return render_template("follower_list.html", followers=followers, users=users, followings=followings)
 
-@app.post('/follow/<int:id>')
+@app.post('/mywatchlist/follow/<int:id>')
 def to_follow_user(id):
     data = {
         'following_id': id,
@@ -72,10 +72,10 @@ def to_follow_user(id):
     }
     if not Follow.get_following(data):
         Follow.add_following(data)
-        return redirect(f'/result/{id}')
-    return redirect(f'/result/{id}')
+        return redirect(f'/mywatchlist/result/{id}')
+    return redirect(f'/mywatchlist/result/{id}')
 
-@app.post('/follow_fromlist/<int:id>')
+@app.post('/mywatchlist/follow_fromlist/<int:id>')
 def to_follow_user_fromlist(id):
     data = {
         'following_id': id,
@@ -83,10 +83,10 @@ def to_follow_user_fromlist(id):
     }
     if not Follow.get_following(data):
         Follow.add_following(data)
-        return redirect(f"/follower/{session['id']}")
-    return redirect(f"/follower/{session['id']}")
+        return redirect(f"/mywatchlist/follower/{session['id']}")
+    return redirect(f"/mywatchlist/follower/{session['id']}")
 
-@app.post('/unfollow/<int:id>')
+@app.post('/mywatchlist/unfollow/<int:id>')
 def to_unfollow_user(id):
     data = {
         'following_id': id,
@@ -94,10 +94,10 @@ def to_unfollow_user(id):
     }
     if Follow.get_following(data):
         Follow.delete_following(data)
-        return redirect(f'/result/{id}')
-    return redirect(f'/result/{id}')
+        return redirect(f'/mywatchlist/result/{id}')
+    return redirect(f'/mywatchlist/result/{id}')
 
-@app.post('/unfollow_fromlist/<int:id>')
+@app.post('/mywatchlist/unfollow_fromlist/<int:id>')
 def to_unfollow_user_fromlist(id):
     data = {
         'following_id': id,
@@ -105,10 +105,10 @@ def to_unfollow_user_fromlist(id):
     }
     if Follow.get_following(data):
         Follow.delete_following(data)
-        return redirect(f"/follower/{session['id']}")
-    return redirect(f"/follower/{session['id']}")
+        return redirect(f"/mywatchlist/follower/{session['id']}")
+    return redirect(f"/mywatchlist/follower/{session['id']}")
 
-@app.route('/unfollow/<int:id>')
+@app.route('/mywatchlist/unfollow/<int:id>')
 def to_unfollow_following_from_list(id):
     data = {
         'following_id': id,
@@ -116,11 +116,11 @@ def to_unfollow_following_from_list(id):
     }
     if Follow.get_following(data):
         Follow.delete_following(data)
-        return redirect(f"/following/{session['id']}")
-    return redirect(f"/following/{session['id']}")
+        return redirect(f"/mywatchlist/following/{session['id']}")
+    return redirect(f"/mywatchlist/following/{session['id']}")
 
 
-@app.post('/register')
+@app.post('/mywatchlist/register')
 def register():
     if User.is_valid(request.form):
 
@@ -129,11 +129,11 @@ def register():
 
         if user_in_db1:
             flash("This email is used",'register')
-            return redirect("/")
+            return redirect("/mywatchlist/")
         
         if user_in_db2:
             flash("This username is used",'register')
-            return redirect("/")
+            return redirect("/mywatchlist/")
 
         pw_hash = bcrypt.generate_password_hash(request.form['password'])
         print(pw_hash)
@@ -144,49 +144,49 @@ def register():
         }
         id = User.register(data)
         session['id'] = id
-        return redirect(f"/result/{session['id']}")
-    return redirect('/')
+        return redirect(f"/mywatchlist/result/{session['id']}")
+    return redirect('/mywatchlist/')
 
 
-@app.route("/to_edit/<int:id>")
+@app.route("/mywatchlist/to_edit/<int:id>")
 def to_edit_profile(id):
     if 'id' not in session:
-        return redirect('/')
+        return redirect('/mywatchlist/')
     data = {
         'id': id
     }
     return render_template("edit_profile.html", user = User.get_user_by_id(data))
 
 
-@app.post('/edit/<int:id>')
+@app.post('/mywatchlist/edit/<int:id>')
 def edit_profile(id):
     if 'id' not in session:
-        return redirect('/')
+        return redirect('/mywatchlist/')
     data = {
         'id': id,
         "username" : request.form['username'],
         "movie_quote" : request.form['movie_quote'],
     }
     User.edit_profile(data)
-    return redirect(f"/result/{session['id']}")
+    return redirect(f"/mywatchlist/result/{session['id']}")
 
 
-@app.post('/login')
+@app.post('/mywatchlist/login')
 def login():
     user_in_db = User.get_by_email(request.form)
 
     if not user_in_db:
         flash("Invalid Email/Password",'login')
-        return redirect("/")
+        return redirect("/mywatchlist/")
 
     if not bcrypt.check_password_hash(user_in_db.password, request.form['password']):
         flash("Invalid Username/Password",'login')
-        return redirect('/')
+        return redirect('/mywatchlist/')
     session['id'] = user_in_db.id
-    return redirect(f"/result/{session['id']}")
+    return redirect(f"/mywatchlist/result/{session['id']}")
 
 
-@app.route('/logout')
+@app.route('/mywatchlist/logout')
 def logout():
     session.clear()
-    return redirect('/')
+    return redirect('/mywatchlist/')

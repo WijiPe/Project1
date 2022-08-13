@@ -16,9 +16,9 @@
             <input  class="search" type="text" placeholder="Search Movies">
         </form>
         <div class="link">
-            <a href="/to_show/{{session['id']}}">My Movie</a>
-            <a href="/result/{{session['id']}}">My Profile</a>
-            <a href="/logout">Log Out</a>
+            <a href="/mywatchlist/to_show/{{session['id']}}">My Movie</a>
+            <a href="/mywatchlist/result/{{session['id']}}">My Profile</a>
+            <a href="/mywatchlist/logout">Log Out</a>
         </div>
     </nav>
     <div class="main">
@@ -39,12 +39,12 @@
                 <tr>
                     <td>{{follower.username}}
                             {% if (follower.followed == False and users.id == session['id']) %}
-                                <td><form class="btn3" action="/follow_fromlist/{{follower.id}}" method="post">
+                                <td><form class="btn3" action="/mywatchlist/follow_fromlist/{{follower.id}}" method="post">
                                     <button class="btn2">Follow</button>
                                 </form></td>
                             {% endif %}
                             {% if (follower.followed != False and users.id == session['id']) %}
-                                <td><form class="btn3" action="/unfollow_fromlist/{{follower.id}}" method="post">
+                                <td><form class="btn3" action="/mywatchlist/unfollow_fromlist/{{follower.id}}" method="post">
                                     <button class="btn2">UnFollow</button>
                                 </form></td>
                             {% endif %}
